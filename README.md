@@ -1,5 +1,9 @@
 # LAB13-Bypass-de-la-D-tection-de-Root-Android-avec-Objections
 
+Sur Android, de nombreuses applications intègrent des mécanismes de sécurité pour détecter si l’appareil est rooté. Le root peut en effet permettre à un utilisateur d’accéder à des fichiers système sensibles, de modifier le comportement d’une application ou d’intercepter des données. Pour se protéger, certaines applications utilisent des vérifications basées sur des fichiers système (comme su), des commandes shell ou des bibliothèques de sécurité telles que RootBeer.
+
+Dans le cadre du test de sécurité des applications mobiles, il devient nécessaire de comprendre ces mécanismes de détection et d’évaluer leur robustesse. Des outils comme Objection, reposant sur Frida, permettent d’intercepter et de modifier le comportement des fonctions Java ou natives afin de simuler un environnement non rooté. Cette approche est utilisée dans les tests de sécurité pour analyser les applications sans être bloqué par ces restrictions.
+
 ## Étape 1 — Installer Objection et Frida côté PC
 
 
@@ -48,3 +52,19 @@
 Objection utilise des hooks via Frida afin de modifier le comportement des applications et masquer les signes de root.
 
 Cette commande permet de simuler un environnement Android « normal » en interceptant les vérifications système utilisées par les applications. Elle bloque notamment la détection de fichiers ou de commandes liés au root (comme su), et peut également tromper certaines bibliothèques de sécurité (par exemple RootBeer) pour qu’elles indiquent que l’appareil n’est pas rooté.
+
+## Étape 5 — Valider le bypass
+
+<img width="527" height="494" alt="image" src="https://github.com/user-attachments/assets/17be1300-8025-42f5-9d5d-d83f7dd600a1" />
+
+<img width="437" height="176" alt="image" src="https://github.com/user-attachments/assets/61d76047-d59e-4d17-9742-712f4f4a1d0a" />
+
+## Étape 6 — Automatiser : injection au démarrage avec plusieurs commandes
+
+<img width="613" height="164" alt="image" src="https://github.com/user-attachments/assets/2f9bcd57-3aa7-4152-9776-710cc77b1cf8" />
+
+# Conclusion
+
+Le contournement de la détection de root sur Android repose principalement sur l’interception des mécanismes utilisés par les applications pour vérifier l’intégrité de l’environnement. Grâce à des outils comme Objection et Frida, il est possible de masquer les traces de root en modifiant dynamiquement les réponses des fonctions de vérification.
+
+Cependant, il est important de souligner que ces techniques ne suppriment pas réellement le root du système, mais ne font que tromper l’application cible. Elles sont principalement utilisées dans un cadre de test, d’audit de sécurité et de recherche en cybersécurité afin d’évaluer la résistance des applications face à des environnements modifiés.
